@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# 🌦️ WeatherApp with React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A clean, responsive weather application built with **React.js**, using the **OpenWeatherMap API** and **GeoDB Cities API**.  
+The app provides real-time weather conditions, a 5-day forecast, and automatic light/dark theme switching.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Live Preview  
+🔗 *(optional)* You can deploy your app on **Vercel** or **Netlify**, then place your live link here.  
+Example: [https://weatherapp-react.vercel.app](https://weatherapp-react.vercel.app)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🖼️ Screenshots
+### ☀️ Light Mode
+![Light Mode Preview](./public/screenshot-light.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🌙 Dark Mode
+![Dark Mode Preview](./public/screenshot-dark.png)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ✨ Features
+✅ Search for any city worldwide (powered by GeoDB API)  
+✅ Real-time temperature, humidity, wind, and pressure  
+✅ 5-day forecast with dynamic weather icons  
+✅ Auto light/dark theme switcher  
+✅ Fully responsive UI  
+✅ Fast API fetching with caching and error handling  
 
-### `npm run build`
+---
+## 🧭 GeoDB Cities API Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Used for autocomplete city search.
+Docs: https://rapidapi.com/wirefreethought/api/geodb-cities
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧩 Tech Stack
+- **React.js (CRA)**  
+- **CSS3 / Custom Theming (Light + Dark)**  
+- **OpenWeatherMap API**  
+- **GeoDB Cities API (RapidAPI)**  
+- **GitHub for Version Control**
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## ⚙️ Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/hehealexandru/Weather-App-with-React.git
+cd Weather-App-with-React
