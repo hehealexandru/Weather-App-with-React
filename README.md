@@ -13,10 +13,10 @@ Example: [https://weatherapp-react.vercel.app](https://weatherapp-react.vercel.a
 
 ## 🖼️ Screenshots
 ### ☀️ Light Mode
-![Light Mode Preview](./public/screenshot-light.png)
+![Light Mode Preview](./light_mode.png)
 
 ### 🌙 Dark Mode
-![Dark Mode Preview](./public/screenshot-dark.png)
+![Dark Mode Preview](./dark_mode.png)
 
 ---
 
