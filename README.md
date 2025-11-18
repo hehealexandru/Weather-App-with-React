@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌦️ WeatherApp with React
 
 A clean, responsive weather application built with **React.js**, using the **OpenWeatherMap API** and **GeoDB Cities API**.  
@@ -16,10 +17,31 @@ Example: [https://weatherapp-react.vercel.app](https://weatherapp-react.vercel.a
 ![Light Mode Preview](./light_mode.png)
 
 ### 🌙 Dark Mode
+=======
+# 🌦️ WeatherApp – React & React Native
+
+A complete weather forecasting project built in **two versions**:
+
+- **🌐 React Web App** – modern UI, responsive layout, Light/Dark mode  
+- **📱 React Native (Expo)** – mobile version for iOS & Android
+
+The application uses **OpenWeatherMap API** for weather data and  
+**GeoDB Cities API** for city autocomplete.
+
+---
+
+## 🖼️ Web Screenshots
+
+### ☀️ Light Mode  
+![Light Mode Preview](./light_mode.png)
+
+### 🌙 Dark Mode  
+>>>>>>> 1e45ce2 (v1.0.0)
 ![Dark Mode Preview](./dark_mode.png)
 
 ---
 
+<<<<<<< HEAD
 ## ✨ Features
 ✅ Search for any city worldwide (powered by GeoDB API)  
 ✅ Real-time temperature, humidity, wind, and pressure  
@@ -112,3 +134,72 @@ Check `packages.json` for details
 <br/>
 Thank You ☺
 >>>>>>> a3aa09e (v1.0.0)
+=======
+## 📱 React Native Screenshots
+*(Insert your Expo screenshots here)*
+
+### 📱 iOS – Light Mode  
+`<insert image>`
+
+### 📱 iOS – Dark Mode  
+`<insert image>`
+
+---
+
+# ✨ Features (Web & Mobile)
+
+## 🌐 React Web Version
+- 🔍 Real-time city search powered by GeoDB API  
+- 🌡️ Current weather: temperature, humidity, wind, pressure  
+- 📅 5-day forecast with icons  
+- 🌓 Light/Dark mode using CSS variables  
+- ⚡ Fast API fetching with error handling  
+- 📱 Fully responsive design  
+
+## 📱 React Native Version
+- 🔍 Autocomplete city search with GeoDB  
+- ⚡ Optimized API fetching for mobile  
+- 🌗 Light/Dark mode with theme objects  
+- 🎨 Modern UI adapted for iOS & Android  
+- 🧩 Reusable components (Search, TodayWeather, WeeklyForecast)  
+- 📱 Designed to match the Web version UI  
+
+---
+
+# 🧠 Tech Stack
+
+## 🌐 React Web
+- React.js (CRA)
+- CSS3 (custom themes)
+- OpenWeatherMap API
+- GeoDB Cities API (RapidAPI)
+
+## 📱 React Native
+- React Native + Expo
+- JavaScript (Hooks)
+- StyleSheet API
+- OpenWeatherMap API
+- GeoDB Cities API
+
+---
+
+# ⚙️ Installation & Setup
+
+## 🌐 React Web
+
+```bash
+git clone https://github.com/hehealexandru/Weather-App-with-React.git
+cd Weather-App-with-React
+npm install
+npm start
+```
+
+## 📱 React Native
+
+```bash
+git clone https://github.com/hehealexandru/Weather-App-with-React.git
+cd weatherapp_native
+#Create an .env file in the project root (Make sure to restart the development server after creating the .env file)
+npx expo start
+```
+>>>>>>> 1e45ce2 (v1.0.0)
