@@ -17,7 +17,6 @@ Example: [https://weatherapp-react.vercel.app](https://weatherapp-react.vercel.a
 ![Light Mode Preview](./light_mode.png)
 
 ### 🌙 Dark Mode  
->>>>>>> 1e45ce2 (v1.0.0)
 ![Dark Mode Preview](./dark_mode.png)
 
 ---
