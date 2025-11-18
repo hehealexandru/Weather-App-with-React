@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🌦️ WeatherApp with React
 
 A clean, responsive weather application built with **React.js**, using the **OpenWeatherMap API** and **GeoDB Cities API**.  
