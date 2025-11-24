@@ -258,3 +258,55 @@ body {
     font-size: 0.9rem;
   }
 }
+
+
+
+
+
+/* Secțiunea .nav-button și .nav-button.active-nav din src/App.css */
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--card-bg-color); 
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-small);
+}
+
+.nav-button {
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s, transform 0.1s;
+  font-weight: bold;
+  /* Asigură că textul este centrat și arată ca un buton */
+  display: inline-block; 
+}
+
+.nav-button:hover {
+  background-color: var(--hover-color); 
+  transform: translateY(-1px); /* Efect subtil la hover */
+}
+
+/* 🚀 MODIFICARE CHEIE AICI: Stilul Butonului Activ */
+.nav-button.active-nav {
+  background-color: var(--primary-color); /* Culoarea ta principală (ex: Albastru intens) */
+  color: rgb(140, 1, 142); /* Text Alb pentru contrast maxim */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* O umbră mică pentru a-l scoate în evidență */
+}
+
+/* Stil pentru Butonul Dark Mode */
+.theme-switch {
+  cursor: pointer;
+  padding: 8px 15px;
+  border-radius: 5px;
+  background-color: var(--hover-color);
+  /* Asigură contrast bun și pe Light Mode și pe Dark Mode */
+  color: var(--text-color); 
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
