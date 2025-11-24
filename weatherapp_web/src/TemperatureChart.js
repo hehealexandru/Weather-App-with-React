@@ -5,12 +5,12 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const TemperatureChart = ({ city, period, data }) => {
     if (!data || data.length === 0) {
-        return <p>Nu sunt disponibile date de temperatură pentru {city} ({period}).</p>;
+        return <p>Temperature data is not available for {city} ({period}).</p>;
     }
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <h3>Evoluția Temperaturii în {city} ({period})</h3>
+            <h3>Temperature Trend in City {city} ({period})</h3>
             <ResponsiveContainer width="100%" height={350}>
                 <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
@@ -32,7 +32,7 @@ const TemperatureChart = ({ city, period, data }) => {
                     {/* Tooltip-ul care apare la hover */}
                     <Tooltip 
                         contentStyle={{ backgroundColor: 'var(--card-bg-color)', border: '1px solid var(--border-color)' }} 
-                        formatter={(value) => [`${value}°C`, 'Temperatura']} 
+                        formatter={(value) => [`${value}°C`, 'Temperature']} 
                     />
                     
                     <Legend />
@@ -42,7 +42,7 @@ const TemperatureChart = ({ city, period, data }) => {
                         type="monotone" 
                         dataKey="temp" 
                         stroke="#007bff" // Albastru
-                        name="Temperatura" 
+                        name="Temperature" 
                         activeDot={{ r: 8 }} 
                         strokeWidth={2}
                     />
@@ -52,7 +52,7 @@ const TemperatureChart = ({ city, period, data }) => {
                         type="monotone" 
                         dataKey="feels_like" 
                         stroke="#28a745" // Verde
-                        name="Resimțită" 
+                        name="Feels Like Temperature" 
                         strokeWidth={2}
                         dot={false}
                     />
