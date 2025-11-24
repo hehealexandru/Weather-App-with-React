@@ -13,7 +13,6 @@ const GEO_API_OPTIONS = {
 
 export async function fetchWeatherData(lat, lon, apiKey) 
 {
-  {
   try {
     console.log("Fetching weather for:", lat, lon);
     const weatherResponse = await fetch(
@@ -35,7 +34,7 @@ export async function fetchWeatherData(lat, lon, apiKey)
     return [weatherData, forecastData];
   } catch (error) {
     console.error("FetchWeatherData error:", error);
-  }
+    throw error; // Re-aruncă eroarea pentru a fi tratată în App.js
   }
 }
 
@@ -53,6 +52,7 @@ export async function fetchCities(input) {
     return;
   }
 }
+
 export async function fetchWeatherByCity(cityName, apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY) {
   try {
     console.log("Fetching weather + forecast for city:", cityName);
@@ -76,3 +76,55 @@ export async function fetchWeatherByCity(cityName, apiKey = process.env.REACT_AP
   }
 }
 
+// ----------------------------------------------------------------------
+// NOU: Funcția de Formatare pentru Grafic (Date Reale)
+// ----------------------------------------------------------------------
+
+/**
+ * Transformă lista de prognoze orare (3h) într-o listă de date zilnice
+ * (Temperatură Maximă și Temperatură Resimțită Medie) pentru afișarea în grafic.
+ * @param {Array} forecastList - Lista primită de la OpenWeatherMap (data.list)
+ * @returns {Array} - Date formatate pentru graficul Recharts
+ */
+export const formatForecastDataForChart = (forecastList) => {
+    if (!forecastList || forecastList.length === 0) return [];
+    
+    // 1. Grupează prognozele pe 3 ore după zi
+    const dailyData = {};
+    
+    forecastList.forEach(item => {
+        const date = new Date(item.dt * 1000);
+        // Folosim data YYYY-MM-DD pentru a grupa corect
+        const dateKey = date.toISOString().split('T')[0];
+        
+        if (!dailyData[dateKey]) {
+            dailyData[dateKey] = {
+                // Ex: "Joi 24"
+                name: date.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' }),
+                temps_max: [],
+                feels_likes: []
+            };
+        }
+        
+        // Colectează toate temperaturile maxime și temperaturile resimțite dintr-o zi
+        dailyData[dateKey].temps_max.push(item.main.temp_max);
+        dailyData[dateKey].feels_likes.push(item.main.feels_like);
+    });
+
+    // 2. Calculează temperatura maximă și media resimțită pentru fiecare zi
+    const chartData = Object.keys(dailyData).map(dateKey => {
+        const day = dailyData[dateKey];
+        // Temperatura maximă înregistrată în acea zi
+        const tempMax = Math.max(...day.temps_max);
+        // Calculăm media temperaturii resimțite (mai reprezentativă decât o extremă)
+        const feelsLikeAvg = day.feels_likes.reduce((a, b) => a + b) / day.feels_likes.length;
+
+        return {
+            name: day.name,
+            temp: Math.round(tempMax), // Linia principală
+            feels_like: Math.round(feelsLikeAvg), // Linia temperaturii resimțite
+        };
+    });
+
+    return chartData; 
+};
