@@ -73,26 +73,26 @@ const ChartPage = ({ city: initialCity, handleSearch, apiKey }) => {
   return (
     <>
         <div className="header">
-            <h1 className="title">Grafic Temperaturi Istorice</h1>
+            <h1 className="title">Historical Temperature Chart</h1>
             {/* Folosim componenta Search, dar funcția de tratare a căutării este cea din App.js */}
             <Search onSearchChange={handleCitySearch} placeholder={`Caută alt oraș pentru grafic...`} />
         </div>
 
         <div className="card-container">
             <div className="weather-card">
-                <h2>Afișează date pentru: **{currentCity}**</h2>
+                <h2>Displaying data for: **{currentCity}**</h2>
                 <div style={{ padding: '10px 0' }}> {/* Adaug spațiu în jurul butoanelor */}
                     <button 
                         style={buttonStyle(period === 'weekly')} 
                         onClick={() => setPeriod('weekly')}
                     >
-                        Ultima Săptămână
+                        Last Week
                     </button>
                     <button 
                         style={buttonStyle(period === 'monthly')} 
                         onClick={() => setPeriod('monthly')}
                     >
-                        Ultima Lună
+                        Last Month
                     </button>
                 </div>
             </div>
@@ -104,7 +104,7 @@ const ChartPage = ({ city: initialCity, handleSearch, apiKey }) => {
                 {!loading && chartData && (
                     <TemperatureChart 
                         city={currentCity} 
-                        period={period === 'weekly' ? 'Ultima Săptămână' : 'Ultima Lună'} 
+                        period={period === 'weekly' ? 'Last week' : 'Last month'} 
                         data={chartData}
                     />
                 )}
