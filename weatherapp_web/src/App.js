@@ -1,17 +1,16 @@
 import { fetchWeatherData, fetchWeatherByCity } from "./OpenWeatherService";
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom"; // Adăugat: Router, Routes, Route, Link, useLocation
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom"; 
 import "./App.css";
 import Search from "./Search";
 import TodayWeather from "./TodayWeather";
 import WeeklyForecast from "./WeeklyForecast";
-import ChartPage from "./ChartPage"; // Adăugat: Componenta pentru grafic
+import ChartPage from "./ChartPage"; 
 
 // ----------------------------------------------------------------------
 // 1. Componenta Pagina Principală (Vremea de Azi + Prognoza Săptămânală)
 // ----------------------------------------------------------------------
 
-// Am mutat logica de afișare a vremii de azi și prognoza săptămânală într-o componentă separată
 const HomePage = ({ weatherData, forecastData, loading, error, handleSearch, toggleTheme, theme }) => {
   return (
     <>
@@ -37,7 +36,6 @@ const HomePage = ({ weatherData, forecastData, loading, error, handleSearch, tog
   );
 };
 
-
 // ----------------------------------------------------------------------
 // 2. Componenta Principală App (Logica de Date, Tema și Rutarea)
 // ----------------------------------------------------------------------
@@ -47,7 +45,6 @@ export default function App() {
   const [forecastData, setForecastData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // Am păstrat 'city' doar pentru inițializare, dar datele sunt stocate în weatherData
   const initialCity = "Bucharest"; 
 
   // Tema aplicației (light / dark)
@@ -71,7 +68,6 @@ export default function App() {
 
   // Afișează implicit București la prima încărcare
   useEffect(() => {
-    // Coordonatele pentru București: 44.43 Nord, 26.10 Est
     handleSearch({ label: initialCity, value: "44.43 26.10" }); 
   }, []);
 
@@ -133,12 +129,13 @@ export default function App() {
               />
             } />
             
-            {/* Noua Rută pentru Grafic - folosim datele și funcția de căutare din App.js */}
+            {/* RUTA MODIFICATĂ: Transmitem forecastData */}
             <Route path="/chart" element={
               <ChartPage 
                 city={weatherData?.city || initialCity} // Transmite orașul curent
-                handleSearch={handleSearch}             // Permite schimbarea orașului în pagina de grafic
+                handleSearch={handleSearch}             // Permite schimbarea orașului în pagina de grafic
                 apiKey={apiKey}
+                forecastData={forecastData} // <--- MODIFICAREA PENTRU DATE REALE
               />
             } />
           </Routes>
@@ -148,7 +145,9 @@ export default function App() {
 }
 
 
-
+// ----------------------------------------------------------------------
+// 3. Componenta Navigare (AppNavigation)
+// ----------------------------------------------------------------------
 const AppNavigation = ({ toggleTheme, theme, currentCity }) => {
     const location = useLocation();
 
@@ -160,7 +159,7 @@ const AppNavigation = ({ toggleTheme, theme, currentCity }) => {
         <div className="nav-bar">
             {/* Butoanele de Navigare */}
             <Link to="/" className={getLinkClass('/')}>
-                🏠 Today's Weather({currentCity})
+                🏠 Today's Weather ({currentCity})
             </Link>
             <Link to="/chart" className={getLinkClass('/chart')}>
                 📊 Temperature Chart
