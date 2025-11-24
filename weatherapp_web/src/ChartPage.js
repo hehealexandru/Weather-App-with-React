@@ -1,140 +1,130 @@
-// src/ChartPage.js
+// src/ChartPage.js (COD NOU COMPLET)
 
 import React, { useState, useEffect } from 'react';
 import Search from './Search';
 import TemperatureChart from './TemperatureChart';
-import { fetchHistoricalWeather } from './OpenWeatherService'; // Presupunem că ai adăugat această funcție
-import './App.css'; // Pentru a prelua stilurile globale (card-uri, culori)
+// Importăm noua funcție din serviciul OpenWeather:
+import { formatForecastDataForChart } from './OpenWeatherService'; 
+import './App.css'; 
 
-const ChartPage = ({ city: initialCity, handleSearch, apiKey }) => {
-  const [currentCity, setCurrentCity] = useState(initialCity);
-  const [period, setPeriod] = useState('weekly'); // 'weekly' sau 'monthly'
-  const [chartData, setChartData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  // Funcție pentru preluarea datelor istorice
-  const loadChartData = async (cityName, timePeriod) => {
-    if (!cityName) return;
-    setLoading(true);
-    setError("");
-    setChartData(null);
-    try {
-        // AICI vei folosi noua funcție API pentru date istorice
+// Am adăugat 'forecastData' la props
+const ChartPage = ({ city: initialCity, handleSearch, forecastData }) => {
+    const [currentCity, setCurrentCity] = useState(initialCity);
+    const [period, setPeriod] = useState('weekly'); // 'weekly' sau 'monthly'
+    const [chartData, setChartData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+
+    // Funcție care procesează datele de prognoză primite
+    const processChartData = (data, timePeriod) => {
+        setLoading(true);
+        setError("");
+
+        if (!data || !data.list || data.list.length === 0) {
+            setError(`Temperature data is not available for ${initialCity}.`);
+            setChartData(null);
+            setLoading(false);
+            return;
+        }
+
+        try {
+            // APELUL CĂTRE FUNCȚIA CARE PREIA DATELE REALE ZILNICE
+            const realData = formatForecastDataForChart(data.list);
+
+            if (timePeriod === 'weekly') {
+                // Luăm prognoza pentru primele 7 zile disponibile
+                setChartData(realData.slice(0, 7)); 
+            } else if (timePeriod === 'monthly') {
+                // Afișăm toată prognoza disponibilă (de obicei ~5 zile, pentru a simula luna)
+                setChartData(realData); 
+            }
+        } catch (err) {
+            setError("Eroare la procesarea datelor graficului.");
+            setChartData(null);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    // Efectul se declanșează când se schimbă orașul, perioada SAU datele de prognoză
+    useEffect(() => {
+        setCurrentCity(initialCity);
+        // Apelăm funcția de procesare cu datele reale
+        processChartData(forecastData, period); 
+    }, [initialCity, period, forecastData]);
+
+
+    // Funcție care gestionează căutarea Noului Oraș (folosește funcția din App.js)
+    const handleCitySearch = (selected) => {
+        handleSearch(selected); 
+    };
+    
+    // Stilurile butoanelor (rămân cele cu contrast optim)
+    const buttonStyle = (isActive) => ({
+        padding: '10px 15px',
+        margin: '0 10px', 
+        border: '1px solid #007bff', 
+        borderRadius: '8px',
+        cursor: 'pointer',
+        transition: '0.3s',
         
-        // **Simulare de date**
-        const simulatedData = generateSimulatedData(timePeriod);
-        setChartData(simulatedData); 
-
-    } catch (err) {
-      console.error("Historical data fetch error:", err);
-      setError(`Unable to load historical data for ${cityName}. (Check API plan for historical access)`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Se execută la schimbarea orașului sau a perioadei
-  useEffect(() => {
-    setCurrentCity(initialCity);
-    loadChartData(initialCity, period);
-  }, [initialCity, period, apiKey]);
+        backgroundColor: 'transparent', 
+        color: '#007bff', 
+        fontWeight: 'normal',
+        
+        ...(isActive && { 
+            backgroundColor: '#007bff', 
+            color: 'white',              
+            fontWeight: 'bold',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+        })
+    });
 
 
-  // Funcție care gestionează căutarea Noului Oraș (folosește funcția din App.js)
-  const handleCitySearch = (selected) => {
-      // Aceasta actualizează starea globală (weatherData, forecastData) în App.js
-      handleSearch(selected); 
-  };
-  
-  // 🚀 MODIFICARE STIL AICI: Contrast puternic pentru butonul activ
-  const buttonStyle = (isActive) => ({
-    padding: '10px 15px',
-    margin: '0 10px', // Măresc distanța
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    transition: '0.3s',
-    
-    // Stilul Butonului Inactiv
-    backgroundColor: 'var(--hover-color)', // Fundal neutru (gri deschis/închis)
-    color: 'var(--text-color)',
-     fontWeight: 'bold',            // Text normal (Negru/Alb în funcție de temă)
-    
-    // Stilul Butonului Activ (Contrast Puternic)
-    ...(isActive && { 
-        backgroundColor: 'var(--primary-color)', // Culoarea ta principală
-        color: 'orange',                          // Text Alb
-        fontWeight: 'bold',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
-    })
-  });
+    return (
+        <>
+            <div className="header">
+                <h1 className="title">Historical Temperature Chart</h1>
+                <Search onSearchChange={handleCitySearch} placeholder={`Search another city for chart...`} />
+            </div>
 
-  return (
-    <>
-        <div className="header">
-            <h1 className="title">Historical Temperature Chart</h1>
-            {/* Folosim componenta Search, dar funcția de tratare a căutării este cea din App.js */}
-            <Search onSearchChange={handleCitySearch} placeholder={`Caută alt oraș pentru grafic...`} />
-        </div>
+            <div className="card-container">
+                <div className="weather-card">
+                    <h2>Displaying data for: **{currentCity}**</h2>
+                    <div style={{ padding: '10px 0' }}>
+                        <button 
+                            style={buttonStyle(period === 'weekly')} 
+                            onClick={() => setPeriod('weekly')}
+                        >
+                            Next week
+                        </button>
+                        <button 
+                            style={buttonStyle(period === 'monthly')} 
+                            onClick={() => setPeriod('monthly')}
+                        >
+                            Next month
+                        </button>
+                    </div>
+                </div>
 
-        <div className="card-container">
-            <div className="weather-card">
-                <h2>Displaying data for: **{currentCity}**</h2>
-                <div style={{ padding: '10px 0' }}> {/* Adaug spațiu în jurul butoanelor */}
-                    <button 
-                        style={buttonStyle(period === 'weekly')} 
-                        onClick={() => setPeriod('weekly')}
-                    >
-                        Last Week
-                    </button>
-                    <button 
-                        style={buttonStyle(period === 'monthly')} 
-                        onClick={() => setPeriod('monthly')}
-                    >
-                        Last Month
-                    </button>
+                <div className="weather-card" style={{ minHeight: '400px', padding: '20px' }}>
+                    {loading && <p className="loading">Loading chart data...</p>}
+                    {error && <p className="error">{error}</p>}
+                    
+                    {!loading && chartData && (
+                        <TemperatureChart 
+                            city={currentCity} 
+                            period={period === 'weekly' ? 'Next week' : 'Next month'} 
+                            data={chartData}
+                        />
+                    )}
                 </div>
             </div>
-
-            <div className="weather-card" style={{ minHeight: '400px', padding: '20px' }}>
-                {loading && <p className="loading">Se încarcă datele graficului...</p>}
-                {error && <p className="error">{error}</p>}
-                
-                {!loading && chartData && (
-                    <TemperatureChart 
-                        city={currentCity} 
-                        period={period === 'weekly' ? 'Last week' : 'Last month'} 
-                        data={chartData}
-                    />
-                )}
-            </div>
-        </div>
-    </>
-  );
+        </>
+    );
 };
 
 export default ChartPage;
-
-
-// Funcție ajutătoare pentru a simula datele în absența unui API istoric
-const generateSimulatedData = (period) => {
-    const days = period === 'weekly' ? 7 : 30;
-    const data = [];
-    const today = new Date();
-
-    for (let i = 0; i < days; i++) {
-        const date = new Date(today);
-        date.setDate(today.getDate() - i);
-        
-        const temp = Math.floor(Math.random() * (20 - 5) + 5); // Simulează temperaturi între 5 și 20
-        const feels_like = temp - Math.floor(Math.random() * 3);
-        
-        data.unshift({ // Adaugă la început pentru a menține ordinea cronologică
-            name: `${date.getDate()}/${date.getMonth() + 1}`,
-            temp: temp,
-            feels_like: feels_like,
-        });
-    }
-    return data;
-};
