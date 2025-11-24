@@ -160,10 +160,10 @@ const AppNavigation = ({ toggleTheme, theme, currentCity }) => {
         <div className="nav-bar">
             {/* Butoanele de Navigare */}
             <Link to="/" className={getLinkClass('/')}>
-                🏠 Vremea de Azi ({currentCity})
+                🏠 Today's Weather({currentCity})
             </Link>
             <Link to="/chart" className={getLinkClass('/chart')}>
-                📊 Grafic Temperaturi
+                📊 Temperature Chart
             </Link>
 
             {/* Butonul de Dark Mode */}
