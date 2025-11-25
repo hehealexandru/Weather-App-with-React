@@ -1,0 +1,76 @@
+.hourly-forecast-container {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: var(--color-bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hourly-forecast-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--color-text);
+    text-align: center;
+}
+
+.hourly-cards-wrapper {
+    display: flex;
+    overflow-x: auto; 
+    padding-bottom: 10px; 
+    gap: 15px;
+    /* Ascunde bara de scroll */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.hourly-cards-wrapper::-webkit-scrollbar {
+    display: none; 
+}
+
+
+.hourly-card {
+    flex: 0 0 auto; 
+    width: 100px; 
+    padding: 10px 5px;
+    text-align: center;
+    background-color: var(--color-bg-primary); 
+    border-radius: 10px;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.hourly-card:hover {
+    transform: translateY(-2px);
+}
+
+.hourly-card .hour {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-text);
+    margin-bottom: 5px;
+}
+
+.hourly-icon {
+    width: 45px; 
+    height: 45px;
+    margin: 5px 0;
+}
+
+.hourly-card .temp {
+    font-size: 1.4rem; 
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.hourly-card .description {
+    font-size: 0.8rem; 
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Dark Mode Adjustments */
+body[data-theme='dark'] .hourly-card {
+    background-color: var(--color-bg-secondary); 
+    border: 1px solid var(--color-bg-border);
+}
