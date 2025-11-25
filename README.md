@@ -76,6 +76,7 @@ git clone https://github.com/hehealexandru/Weather-App-with-React.git
 cd Weather-App-with-React
 npm install
 npm start
+npm install react-router-dom recharts
 ```
 
 ## 📱 React Native
